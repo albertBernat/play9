@@ -1,5 +1,7 @@
 import * as types from "./actionTypes";
 import utils from "../../utils/Utils";
+import {INITIAL_EASY_LEVEL, INITIAL_HARD_LEVEL, INITIAL_MEDIUM_LEVEL} from "../reducers/initialState";
+import {EASY, HARD, MEDIUM} from "../../components/game/difficultyLevels";
 
 export function updateAvailableNumbers(availableNumbers) {
     return {
@@ -28,15 +30,21 @@ export function timeRemainingTick() {
     }
 }
 
-export function resetState() {
-    return {
-        type: types.STATE_RESET
-    }
-}
-
 export function changeDifficultyLevel(difficultyLevel) {
     return {
         type: types.CHANGE_DIFFICULTY_LEVEL,
-        difficultyLevel
+        newState: getStateByDifficultyLevel(difficultyLevel)
+    }
+}
+
+function getStateByDifficultyLevel(difficultyLevel) {
+    if (difficultyLevel === EASY) {
+        return INITIAL_EASY_LEVEL;
+    }
+    if (difficultyLevel === MEDIUM) {
+        return  INITIAL_MEDIUM_LEVEL;
+    }
+    if (difficultyLevel === HARD) {
+        return  INITIAL_HARD_LEVEL;
     }
 }

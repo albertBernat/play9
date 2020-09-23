@@ -87,11 +87,11 @@ StarMatchPage.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        secondLeft: state.secondLeft,
-        stars: state.stars,
-        availableNums: state.availableNums,
-        candidateNums: state.candidateNums,
-        difficultyLevel: state.difficultyLevel,
+        secondLeft: state.game.secondLeft,
+        stars: state.game.stars,
+        availableNums: state.game.availableNums,
+        candidateNums: state.game.candidateNums,
+        difficultyLevel: state.game.difficultyLevel,
     }
 }
 
@@ -102,7 +102,6 @@ function mapDispatchToProps(dispatch) {
             starsNewRandom: bindActionCreators(gameActions.starsNewRandom, dispatch),
             updateAvailableNums: bindActionCreators(gameActions.updateAvailableNumbers, dispatch),
             updateCandidateNums: bindActionCreators(gameActions.updateCandidateNumbers, dispatch),
-            resetState: bindActionCreators(gameActions.resetState, dispatch),
             changeDifficultyLevel: bindActionCreators(gameActions.changeDifficultyLevel, dispatch)
         }
     }
