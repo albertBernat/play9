@@ -1,0 +1,11 @@
+applications:
+  - name: albus-play9
+    disk_quota: 512M
+    instances: 1
+    memory: 64M
+    path: build/
+    timeout: 120
+    routes:
+      - route: albus-play9.cfapps.io
+    buildpacks:
+      - https://github.com/cloudfoundry/staticfile-buildpack

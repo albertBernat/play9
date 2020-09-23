@@ -1,0 +1,17 @@
+.tutorial-steps {
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+    display: block;
+}
+
+.step {
+    color: #E9C46A;
+    background-color: #2A9D8F;
+    padding: 10px;
+    transition: background-color 0.2s;
+}
+
+.step:hover {
+    background-color: #264653;
+}
