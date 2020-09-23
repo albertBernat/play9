@@ -21,6 +21,6 @@ export const INITIAL_HARD_LEVEL = {
     stars: utils.random(1, 15),
     availableNums: utils.range(1, 9),
     candidateNums: [],
-    secondLeft: 3,
+    secondLeft: 10,
     difficultyLevel: HARD
 };
