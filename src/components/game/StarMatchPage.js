@@ -3,12 +3,13 @@ import utils from '../../utils/Utils';
 import StarMatchDisplay from "./StarMatchDisplay";
 import PropTypes from "prop-types";
 import {ACTIVE, LOST, WON} from './gameStatusConsts'
-import {CANDIDATE, WRONG, AVAILABLE, USED} from './numberStatusConsts'
+import {AVAILABLE, CANDIDATE, USED, WRONG} from './numberStatusConsts'
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import * as gameActions from '../../redux/actions/gameActions';
+import DifficultyLevelPage from "./DifficultyLevelPage";
 
-const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums}) => {
+const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel}) => {
 
     useEffect(() => {
         if (secondLeft > 0 && availableNums.length > 0) {
@@ -34,6 +35,10 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
 
     const gameStatus = availableNums.length === 0 ? WON : secondLeft === 0 ? LOST : ACTIVE;
 
+    const handleDifficultyChange = (event) => {
+        actions.changeDifficultyLevel(event.target.value);
+    };
+
     const handleNumberStatus = (number) => {
         if (!availableNums.includes(number)) {
             return USED;
@@ -53,18 +58,21 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
     };
 
     const handleNewGame = () => {
-        actions.resetState();
+        actions.changeDifficultyLevel(difficultyLevel);
     };
 
     return (
-        <StarMatchDisplay
-            startNewGame={handleNewGame}
-            stars={stars}
-            checkNumberStatus={handleNumberStatus}
-            onNumberClick={handleNumberClick}
-            gameStatus={gameStatus}
-            secondLeft={secondLeft}
-        />
+        <>
+            <StarMatchDisplay
+                startNewGame={handleNewGame}
+                stars={stars}
+                checkNumberStatus={handleNumberStatus}
+                onNumberClick={handleNumberClick}
+                gameStatus={gameStatus}
+                secondLeft={secondLeft}
+            />
+            <DifficultyLevelPage handleDifficultyChange={handleDifficultyChange}/>
+        </>
     );
 };
 
@@ -73,7 +81,8 @@ StarMatchPage.propTypes = {
     availableNums: PropTypes.array.isRequired,
     actions: PropTypes.array.isRequired,
     stars: PropTypes.number.isRequired,
-    candidateNums:PropTypes.array.isRequired
+    candidateNums: PropTypes.array.isRequired,
+    changeDifficultyLevel: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -81,7 +90,8 @@ function mapStateToProps(state) {
         secondLeft: state.secondLeft,
         stars: state.stars,
         availableNums: state.availableNums,
-        candidateNums: state.candidateNums
+        candidateNums: state.candidateNums,
+        difficultyLevel: state.difficultyLevel,
     }
 }
 
@@ -92,7 +102,8 @@ function mapDispatchToProps(dispatch) {
             starsNewRandom: bindActionCreators(gameActions.starsNewRandom, dispatch),
             updateAvailableNums: bindActionCreators(gameActions.updateAvailableNumbers, dispatch),
             updateCandidateNums: bindActionCreators(gameActions.updateCandidateNumbers, dispatch),
-            resetState: bindActionCreators(gameActions.resetState, dispatch)
+            resetState: bindActionCreators(gameActions.resetState, dispatch),
+            changeDifficultyLevel: bindActionCreators(gameActions.changeDifficultyLevel, dispatch)
         }
     }
 }

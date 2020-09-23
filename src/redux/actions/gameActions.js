@@ -33,3 +33,10 @@ export function resetState() {
         type: types.STATE_RESET
     }
 }
+
+export function changeDifficultyLevel(difficultyLevel) {
+    return {
+        type: types.CHANGE_DIFFICULTY_LEVEL,
+        difficultyLevel
+    }
+}

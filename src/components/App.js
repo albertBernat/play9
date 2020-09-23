@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import StarMatchPage from './game/StarMatchPage';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import NotFoundPage from "./NotFoundPage";
 import Header from "./commons/Header";
 import TutorialMenuPage from "./tutorial/TutorialMenuPage";
