@@ -8,6 +8,7 @@ import TutorialGameStartPage from "./tutorial/TutorialGameStartPage";
 import TutorialGameRulesPage from "./tutorial/TutorialGameRulesPage";
 import TutorialWinGamePage from "./tutorial/TutorialWinGamePage";
 import TutorialGameOverPage from "./tutorial/TutorialGameOverPage";
+import HighScoresPage from "./highscores/HighScoresPage";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/tutorial/game-rules" component={TutorialGameRulesPage}/>
                 <Route path="/tutorial/win-game" component={TutorialWinGamePage}/>
                 <Route path="/tutorial/game-over" component={TutorialGameOverPage}/>
+                <Route path="/high-scores" component={HighScoresPage}/>
                 <Route component={NotFoundPage}/>
             </Switch>
         </>

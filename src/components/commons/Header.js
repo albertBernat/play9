@@ -18,6 +18,9 @@ const Header = () => {
                 <NavLink to="/about" className="nav-element">
                     About
                 </NavLink>
+                <NavLink to="/high-scores" className="nav-element">
+                    High Scores
+                </NavLink>
             </Toolbar>
         </AppBar>
     );
