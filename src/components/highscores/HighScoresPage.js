@@ -1,6 +1,6 @@
 import React from 'react';
 import HighScoresDisplay from "./HighScoresDisplay";
-import {loadHighScores} from "../api/api";
+import {loadHighScores} from "../../api/api";
 import Spinner from "../commons/Spinner";
 
 class HighScoresPage extends React.Component {
@@ -10,9 +10,7 @@ class HighScoresPage extends React.Component {
 
     componentDidMount() {
         if (this.state.highScores.length === 0) {
-            loadHighScores()
-                .then(data => this.setState({highScores: data}))
-                .catch(error => alert("Loading high scores failed" + error));
+            loadHighScores().then(result => this.setState({highScores: result}));
         }
     }
 

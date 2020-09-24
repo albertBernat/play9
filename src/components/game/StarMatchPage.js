@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import utils from '../../utils/Utils';
 import StarMatchDisplay from "./StarMatchDisplay";
 import PropTypes from "prop-types";
@@ -7,9 +7,14 @@ import {AVAILABLE, CANDIDATE, USED, WRONG} from './numberStatusConsts'
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import * as gameActions from '../../redux/actions/gameActions';
+import * as highScoreActions from '../../redux/actions/highScoreActions';
+import {createHighScore} from '../../api/api'
+
 import DifficultyLevelPage from "./DifficultyLevelPage";
 
-const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel}) => {
+const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel, saveUserScore}) => {
+
+    const [username,setUsername] = useState('');
 
     useEffect(() => {
         if (secondLeft > 0 && availableNums.length > 0) {
@@ -29,6 +34,16 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
             actions.updateAvailableNums(newAvailableNums);
             actions.updateCandidateNums([]);
         }
+    }
+
+    const handleUsernameChange = ({target}) => {
+        setUsername(target.value);
+    }
+
+    const handleSaveHighscore = (event) => {
+        event.preventDefault();
+        createHighScore({username, score: 120});
+        actions.changeDifficultyLevel(difficultyLevel);
     }
 
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
@@ -70,6 +85,8 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
                 onNumberClick={handleNumberClick}
                 gameStatus={gameStatus}
                 secondLeft={secondLeft}
+                onUsernameChange={handleUsernameChange}
+                onHighscoreSave={handleSaveHighscore}
             />
             <DifficultyLevelPage handleDifficultyChange={handleDifficultyChange}/>
         </>
@@ -82,6 +99,7 @@ StarMatchPage.propTypes = {
     actions: PropTypes.array.isRequired,
     stars: PropTypes.number.isRequired,
     candidateNums: PropTypes.array.isRequired,
+    saveUserScore: PropTypes.func.isRequired,
     changeDifficultyLevel: PropTypes.func.isRequired
 }
 
@@ -102,7 +120,8 @@ function mapDispatchToProps(dispatch) {
             starsNewRandom: bindActionCreators(gameActions.starsNewRandom, dispatch),
             updateAvailableNums: bindActionCreators(gameActions.updateAvailableNumbers, dispatch),
             updateCandidateNums: bindActionCreators(gameActions.updateCandidateNumbers, dispatch),
-            changeDifficultyLevel: bindActionCreators(gameActions.changeDifficultyLevel, dispatch)
+            changeDifficultyLevel: bindActionCreators(gameActions.changeDifficultyLevel, dispatch),
+            saveUserScore: bindActionCreators(highScoreActions.saveUserScore,dispatch),
         }
     }
 }

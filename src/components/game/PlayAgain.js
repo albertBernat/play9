@@ -1,24 +1,29 @@
 import React from 'react';
-import * as gameStatusConsts from './gameStatusConsts';
+import {LOST, WON} from './gameStatusConsts';
 import PropTypes from 'prop-types';
+import SaveHighScore from "./SaveHighScore";
 
-const PlayAgain = ({gameStatus, onClick}) => {
+const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave}) => {
     return (
         <div className='game-done'>
             <div className='message'
-                 style={{color: gameStatus === gameStatusConsts.LOST ? 'red' : 'green'}}
+                 style={{color: gameStatus === LOST ? 'red' : 'green'}}
             >
-                {gameStatus === gameStatusConsts.LOST ? 'Game over' : 'Nice'}</div>
+                {gameStatus === LOST ? 'Game over' : 'Nice'}</div>
             <button onClick={() => onClick()}>
                 Play Again
             </button>
+            {gameStatus === WON && <SaveHighScore onUsernameChange={onUsernameChange}
+                                                  onHighscoreSave={onHighscoreSave}/>}
         </div>
     )
 }
 
 PlayAgain.propTypes = {
     gameStatus: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    onUsernameChange: PropTypes.func.isRequired,
+    onHighscoreSave: PropTypes.func.isRequired
 }
 
 export default PlayAgain;

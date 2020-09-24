@@ -48,3 +48,4 @@ function getStateByDifficultyLevel(difficultyLevel) {
         return  INITIAL_HARD_LEVEL;
     }
 }
+
