@@ -7,16 +7,17 @@ import {AVAILABLE, CANDIDATE, USED, WRONG} from './numberStatusConsts'
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import * as gameActions from '../../redux/actions/gameActions';
-import * as highScoreActions from '../../redux/actions/highScoreActions';
 import {createHighScore} from '../../api/api'
 
 import DifficultyLevelPage from "./DifficultyLevelPage";
+import {EASY, HARD, MEDIUM} from "./difficultyLevels";
 
-const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel, saveUserScore}) => {
+const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel}) => {
 
-    const [username,setUsername] = useState('');
+    const [username, setUsername] = useState('');
 
     useEffect(() => {
+        calculatePoints();
         if (secondLeft > 0 && availableNums.length > 0) {
             const timerId = setTimeout(() => {
                 actions.timeRemainingTick();
@@ -42,9 +43,19 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
 
     const handleSaveHighscore = (event) => {
         event.preventDefault();
-        createHighScore({username, score: 120});
+        createHighScore({username, score: calculatePoints()});
         actions.changeDifficultyLevel(difficultyLevel);
     }
+
+    const calculatePoints = () => {
+        const levelFactors = new Map();
+        levelFactors.set(EASY, 1);
+        levelFactors.set(MEDIUM, 3);
+        levelFactors.set(HARD, 10);
+
+        const factor = levelFactors.get(difficultyLevel);
+        return secondLeft * factor;
+    };
 
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
 
@@ -99,7 +110,6 @@ StarMatchPage.propTypes = {
     actions: PropTypes.array.isRequired,
     stars: PropTypes.number.isRequired,
     candidateNums: PropTypes.array.isRequired,
-    saveUserScore: PropTypes.func.isRequired,
     changeDifficultyLevel: PropTypes.func.isRequired
 }
 
@@ -121,7 +131,6 @@ function mapDispatchToProps(dispatch) {
             updateAvailableNums: bindActionCreators(gameActions.updateAvailableNumbers, dispatch),
             updateCandidateNums: bindActionCreators(gameActions.updateCandidateNumbers, dispatch),
             changeDifficultyLevel: bindActionCreators(gameActions.changeDifficultyLevel, dispatch),
-            saveUserScore: bindActionCreators(highScoreActions.saveUserScore,dispatch),
         }
     }
 }
