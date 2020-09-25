@@ -8,20 +8,22 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import * as gameActions from '../../redux/actions/gameActions';
 import {createHighScore} from '../../api/api'
-
 import DifficultyLevelPage from "./DifficultyLevelPage";
 import {EASY, HARD, MEDIUM} from "./difficultyLevels";
 
 const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel}) => {
 
     const [username, setUsername] = useState('');
+    const [score, setScore] = useState(0);
+
+    const gameStatus = availableNums.length === 0 ? WON : secondLeft === 0 ? LOST : ACTIVE;
 
     useEffect(() => {
-        calculatePoints();
-        if (secondLeft > 0 && availableNums.length > 0) {
+        if (gameStatus === ACTIVE) {
             const timerId = setTimeout(() => {
                 actions.timeRemainingTick();
             }, 1000);
+
             return () => clearTimeout(timerId);
         }
     }, [secondLeft])
@@ -48,18 +50,23 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
     }
 
     const calculatePoints = () => {
+        if (gameStatus !== WON) {
+            return;
+        }
         const levelFactors = new Map();
         levelFactors.set(EASY, 1);
-        levelFactors.set(MEDIUM, 3);
-        levelFactors.set(HARD, 10);
+        levelFactors.set(MEDIUM, 10);
+        levelFactors.set(HARD, 30);
 
         const factor = levelFactors.get(difficultyLevel);
-        return secondLeft * factor;
+        if(score === 0) {
+            setScore( secondLeft * factor + factor);
+        }
+        return score;
     };
 
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
 
-    const gameStatus = availableNums.length === 0 ? WON : secondLeft === 0 ? LOST : ACTIVE;
 
     const handleDifficultyChange = (event) => {
         actions.changeDifficultyLevel(event.target.value);
@@ -98,6 +105,7 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
                 secondLeft={secondLeft}
                 onUsernameChange={handleUsernameChange}
                 onHighscoreSave={handleSaveHighscore}
+                score={ calculatePoints() }
             />
             <DifficultyLevelPage handleDifficultyChange={handleDifficultyChange}/>
         </>

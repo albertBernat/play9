@@ -3,7 +3,7 @@ import {LOST, WON} from './gameStatusConsts';
 import PropTypes from 'prop-types';
 import SaveHighScore from "./SaveHighScore";
 
-const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave}) => {
+const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave, score}) => {
     return (
         <div className='game-done'>
             <div className='message'
@@ -14,7 +14,8 @@ const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave}) => 
                 Play Again
             </button>
             {gameStatus === WON && <SaveHighScore onUsernameChange={onUsernameChange}
-                                                  onHighscoreSave={onHighscoreSave}/>}
+                                                  onHighscoreSave={onHighscoreSave}
+                                                  score={score}/>}
         </div>
     )
 }
@@ -23,7 +24,8 @@ PlayAgain.propTypes = {
     gameStatus: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     onUsernameChange: PropTypes.func.isRequired,
-    onHighscoreSave: PropTypes.func.isRequired
+    onHighscoreSave: PropTypes.func.isRequired,
+    score: PropTypes.number.isRequired,
 }
 
 export default PlayAgain;

@@ -6,7 +6,7 @@ import PlayNumber from "./PlayNumber";
 import PropTypes from "prop-types";
 import {ACTIVE} from './gameStatusConsts'
 
-const StarMatchDisplay = ({gameStatus, startNewGame, stars, checkNumberStatus, onNumberClick, secondLeft, onUsernameChange, onHighscoreSave}) => {
+const StarMatchDisplay = ({gameStatus, startNewGame, stars, checkNumberStatus, onNumberClick, secondLeft, onUsernameChange, onHighscoreSave, score}) => {
     return (
         <div className="game">
             <div className="help">
@@ -19,7 +19,8 @@ const StarMatchDisplay = ({gameStatus, startNewGame, stars, checkNumberStatus, o
                             <PlayAgain onClick={startNewGame}
                                        gameStatus={gameStatus}
                                        onUsernameChange={onUsernameChange}
-                                       onHighscoreSave={onHighscoreSave}/> : <StarsDisplay count={stars}/>
+                                       onHighscoreSave={onHighscoreSave}
+                                       score={score}/> : <StarsDisplay count={stars}/>
                     }
                 </div>
                 <div className="right">
@@ -46,7 +47,8 @@ StarMatchDisplay.propTypes = {
     onNumberClick: PropTypes.func.isRequired,
     secondLeft: PropTypes.number.isRequired,
     onUsernameChange: PropTypes.func.isRequired,
-    onHighscoreSave: PropTypes.func.isRequired
+    onHighscoreSave: PropTypes.func.isRequired,
+    score: PropTypes.number.isRequired,
 }
 
 export default StarMatchDisplay;
