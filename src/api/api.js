@@ -1,10 +1,11 @@
 import {handleError} from "./apiUtils";
 import axios from 'axios'
 
-// const baseUrl = "https://7195b8f9-f4de-4520-801f-1a749106f73a.mock.pstmn.io/highScores";
-const baseUrl = "http://localhost:8080/api/";
+const baseUrl = process.env.REACT_APP_API_URL;
 
 export function loadHighScores() {
+    console.log(process.env.NODE_ENV)
+    console.log(baseUrl);
     return fetch(`${baseUrl}scores/best`)
         .then(response => response.json())
         .catch(handleError);
