@@ -26,7 +26,7 @@ PlayAgain.propTypes = {
     onClick: PropTypes.func.isRequired,
     onUsernameChange: PropTypes.func.isRequired,
     onHighscoreSave: PropTypes.func.isRequired,
-    score: PropTypes.number.isRequired,
+    score: PropTypes.number,
 }
 
 export default PlayAgain;

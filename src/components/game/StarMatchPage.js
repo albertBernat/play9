@@ -115,10 +115,9 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
 StarMatchPage.propTypes = {
     secondLeft: PropTypes.number.isRequired,
     availableNums: PropTypes.array.isRequired,
-    actions: PropTypes.array.isRequired,
-    stars: PropTypes.number.isRequired,
+    actions: PropTypes.object.isRequired,
+    stars: PropTypes.number,
     candidateNums: PropTypes.array.isRequired,
-    changeDifficultyLevel: PropTypes.func.isRequired,
     scoreSaveStatus: PropTypes.string,
 }
 
