@@ -1,20 +1,15 @@
-import {SAVE_SCORE_FAILED, SAVE_SCORE_SUCCEDEED} from "../actions/actionTypes";
+import {RESET_SAVE_SCORE, SAVE_SCORE_FAILED, SAVE_SCORE_SUCCEDEED} from "../actions/actionTypes";
+import {SCORE_NOT_SAVED, SCORE_SAVED} from "../../saveScoreStatus";
 
-const saveStatus = {
-    SUCCEED: 'suceeed',
-    FAILED: 'failed',
-}
-
-const initialState = {
-    saveStatus: '',
-}
+const initialState =  SCORE_NOT_SAVED;
 
 export function scoreReducer(state = initialState, action) {
     switch (action.type) {
         case SAVE_SCORE_SUCCEDEED:
-            return saveStatus.SUCCEED;
+            return SCORE_SAVED;
         case SAVE_SCORE_FAILED:
-            return saveStatus.FAILED;
+        case RESET_SAVE_SCORE:
+            return SCORE_NOT_SAVED;
         default:
             return state;
     }

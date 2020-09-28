@@ -3,7 +3,7 @@ import {LOST, WON} from './gameStatusConsts';
 import PropTypes from 'prop-types';
 import SaveHighScore from "./SaveHighScore";
 
-const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave, score}) => {
+const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave, score, scoreSaveStatus}) => {
     return (
         <div className='game-done'>
             <div className='message'
@@ -15,6 +15,7 @@ const PlayAgain = ({gameStatus, onClick, onUsernameChange, onHighscoreSave, scor
             </button>
             {gameStatus === WON && <SaveHighScore onUsernameChange={onUsernameChange}
                                                   onHighscoreSave={onHighscoreSave}
+                                                  scoreSaveStatus={scoreSaveStatus}
                                                   score={score}/>}
         </div>
     )

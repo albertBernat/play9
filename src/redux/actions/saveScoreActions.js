@@ -1,4 +1,4 @@
-import {SAVE_SCORE, SAVE_SCORE_FAILED, SAVE_SCORE_SUCCEDEED} from "./actionTypes";
+import {RESET_SAVE_SCORE, SAVE_SCORE, SAVE_SCORE_FAILED, SAVE_SCORE_SUCCEDEED} from "./actionTypes";
 import {toast} from "react-toastify";
 
 export function saveScore(highscore) {
@@ -19,5 +19,11 @@ export function saveScoreFailed() {
     toast.error('Error saving score');
     return {
         type: SAVE_SCORE_FAILED,
+    }
+}
+
+export function resetSavedScoreStatus() {
+    return {
+        type: RESET_SAVE_SCORE,
     }
 }

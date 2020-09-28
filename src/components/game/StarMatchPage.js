@@ -11,7 +11,7 @@ import DifficultyLevelPage from "./DifficultyLevelPage";
 import {EASY, HARD, MEDIUM} from "./difficultyLevels";
 import * as saveScoreActions from '../../redux/actions/saveScoreActions';
 
-const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel}) => {
+const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums, difficultyLevel, scoreSaveStatus}) => {
 
     const [username, setUsername] = useState('');
     const [score, setScore] = useState(0);
@@ -46,7 +46,6 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
     const handleSaveHighscore = (event) => {
         event.preventDefault();
         actions.saveScore({username, score: calculatePoints()})
-        actions.changeDifficultyLevel(difficultyLevel);
     }
 
     const calculatePoints = () => {
@@ -91,6 +90,7 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
 
     const handleNewGame = () => {
         actions.changeDifficultyLevel(difficultyLevel);
+        actions.resetSavedScoreStatus();
     };
 
     return (
@@ -104,6 +104,7 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
                 secondLeft={secondLeft}
                 onUsernameChange={handleUsernameChange}
                 onHighscoreSave={handleSaveHighscore}
+                scoreSaveStatus={scoreSaveStatus}
                 score={calculatePoints()}
             />
             <DifficultyLevelPage handleDifficultyChange={handleDifficultyChange}/>
@@ -118,6 +119,7 @@ StarMatchPage.propTypes = {
     stars: PropTypes.number.isRequired,
     candidateNums: PropTypes.array.isRequired,
     changeDifficultyLevel: PropTypes.func.isRequired,
+    scoreSaveStatus: PropTypes.string,
 }
 
 function mapStateToProps(state) {
@@ -127,6 +129,7 @@ function mapStateToProps(state) {
         availableNums: state.game.availableNums,
         candidateNums: state.game.candidateNums,
         difficultyLevel: state.game.difficultyLevel,
+        scoreSaveStatus: state.saveScoreStatus,
     }
 }
 
@@ -139,6 +142,7 @@ function mapDispatchToProps(dispatch) {
             updateCandidateNums: bindActionCreators(gameActions.updateCandidateNumbers, dispatch),
             changeDifficultyLevel: bindActionCreators(gameActions.changeDifficultyLevel, dispatch),
             saveScore: bindActionCreators(saveScoreActions.saveScore, dispatch),
+            resetSavedScoreStatus: bindActionCreators(saveScoreActions.resetSavedScoreStatus,dispatch)
         }
     }
 }

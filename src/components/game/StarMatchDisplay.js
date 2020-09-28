@@ -6,7 +6,7 @@ import PlayNumber from "./PlayNumber";
 import PropTypes from "prop-types";
 import {ACTIVE} from './gameStatusConsts'
 
-const StarMatchDisplay = ({gameStatus, startNewGame, stars, checkNumberStatus, onNumberClick, secondLeft, onUsernameChange, onHighscoreSave, score}) => {
+const StarMatchDisplay = ({gameStatus, startNewGame, stars, checkNumberStatus, onNumberClick, secondLeft, onUsernameChange, onHighscoreSave, score, scoreSaveStatus}) => {
     return (
         <div className="game">
             <div className="help">
@@ -20,6 +20,7 @@ const StarMatchDisplay = ({gameStatus, startNewGame, stars, checkNumberStatus, o
                                        gameStatus={gameStatus}
                                        onUsernameChange={onUsernameChange}
                                        onHighscoreSave={onHighscoreSave}
+                                       scoreSaveStatus={scoreSaveStatus}
                                        score={score}/> : <StarsDisplay count={stars}/>
                     }
                 </div>

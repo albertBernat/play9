@@ -1,14 +1,17 @@
 import React from 'react';
 import TextInput from "../commons/TextInput";
 import PropTypes from 'prop-types';
+import {SCORE_NOT_SAVED} from "../../saveScoreStatus";
 
-const SaveHighScore = ({onUsernameChange, onHighscoreSave, score}) => {
+const SaveHighScore = ({onUsernameChange, onHighscoreSave, score, scoreSaveStatus}) => {
     return (
-        <form onSubmit={onHighscoreSave}>
-            <p>Your score: {score}</p>
-            <TextInput label="Name" onChange={onUsernameChange} name="Name"/>
-            <button type="submit">Save your highscore</button>
-        </form>
+        scoreSaveStatus === SCORE_NOT_SAVED ?
+            <form onSubmit={onHighscoreSave}>
+                <p>Your score: {score}</p>
+                <TextInput label="Name" onChange={onUsernameChange} name="Name"/>
+                <button type="submit">Save your highscore</button>
+            </form>:
+            <p>Score saved</p>
     );
 };
 
