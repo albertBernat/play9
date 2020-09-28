@@ -1,8 +1,7 @@
 import {call, put, takeLatest} from "redux-saga/effects";
-import * as types from '../actions/actionTypes';
 import * as api from '../../api/api'
-import {fetchHighscoresFailed, fetchHighscoresSuceeded} from "../actions/highscoreActions";
-import {all} from "@redux-saga/core/effects";
+import {fetchHighscoresFailed, fetchHighscoresSuceeded,} from "../actions/highscoreActions";
+import {FETCH_HIGHSCORE} from "../actions/actionTypes";
 
 function* fetchHighscores() {
     try {
@@ -14,9 +13,6 @@ function* fetchHighscores() {
 }
 
 export function* fetchHighScoresSaga() {
-    yield takeLatest(types.FETCH_HIGHSCORE, fetchHighscores)
+    yield takeLatest(FETCH_HIGHSCORE, fetchHighscores)
 }
 
-export default function* rootSaga() {
-    yield all([fetchHighScoresSaga()]);
-}

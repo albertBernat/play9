@@ -1,7 +1,7 @@
 import {applyMiddleware, compose, createStore} from "redux";
 import rootReducer from "./reducers/rootReducer";
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from "./sagas/apiSaga";
+import rootSaga from "./sagas/rootSaga";
 
 export default function configureStore(initialState) {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for redux devtools

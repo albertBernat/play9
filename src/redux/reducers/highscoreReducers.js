@@ -2,7 +2,7 @@ import {FETCH_HIGHSCORE_FAILED, FETCH_HIGHSCORE_SUCEEDED} from "../actions/actio
 
 const initialState = {
     highscores: [],
-    errorMessage: '',
+    errorMessage: ''
 }
 export function highscoreReducer(state = initialState, action) {
     switch (action.type) {

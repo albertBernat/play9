@@ -1,4 +1,4 @@
-import {FETCH_HIGHSCORE, FETCH_HIGHSCORE_FAILED, FETCH_HIGHSCORE_SUCEEDED} from "./actionTypes";
+import {FETCH_HIGHSCORE, FETCH_HIGHSCORE_FAILED, FETCH_HIGHSCORE_SUCEEDED,} from "./actionTypes";
 
 export function fetchHighscores() {
     return {
@@ -19,3 +19,7 @@ export function fetchHighscoresFailed(message) {
         message
     };
 }
+
+
+
+
