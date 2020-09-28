@@ -1,27 +1,42 @@
 import React from 'react';
 import HighScoresDisplay from "./HighScoresDisplay";
-import {loadHighScores} from "../../api/api";
 import Spinner from "../commons/Spinner";
+import PropTypes from 'prop-types';
+import {fetchHighscores} from "../../redux/actions/highscoreActions";
+import {connect} from "react-redux";
+
 
 class HighScoresPage extends React.Component {
-    state = {
-        highScores: []
+
+    static propTypes = {
+        fetchHighscores: PropTypes.func.isRequired
     }
 
     componentDidMount() {
-        if (this.state.highScores.length === 0) {
-            loadHighScores().then(result => this.setState({highScores: result}));
+        if (this.props.highScores.length === 0) {
+            this.props.fetchHighscores();
         }
     }
 
     render() {
         return (
-            this.state.highScores.length === 0
+            this.props.highScores.length === 0
                 ? <Spinner/>
-                : <HighScoresDisplay highScores={this.state.highScores}/>
+                : <HighScoresDisplay highScores={this.props.highScores}/>
         );
     }
-
 }
 
-export default HighScoresPage;
+function mapDispatchToProps(dispatch){
+    return {
+        fetchHighscores: () => dispatch(fetchHighscores())
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        highScores: state.highscores,
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HighScoresPage);

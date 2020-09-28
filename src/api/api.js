@@ -4,11 +4,10 @@ import axios from 'axios'
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export function loadHighScores() {
-    console.log(process.env.NODE_ENV)
-    console.log(baseUrl);
-    return fetch(`${baseUrl}scores/best`)
-        .then(response => response.json())
-        .catch(handleError);
+    const highscores = fetch(`${baseUrl}scores/best`)
+        .then(response => response.json());
+    console.log(highscores);
+    return highscores;
 }
 
 export function createHighScore(score) {
