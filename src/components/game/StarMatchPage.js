@@ -66,10 +66,6 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
 
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
 
-    const handleDifficultyChange = (event) => {
-        actions.changeDifficultyLevel(event.target.value);
-    };
-
     const handleNumberStatus = (number) => {
         if (!availableNums.includes(number)) {
             return USED;
@@ -89,9 +85,18 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
     };
 
     const handleNewGame = () => {
-        actions.changeDifficultyLevel(difficultyLevel);
-        actions.resetSavedScoreStatus();
+        resetGame(difficultyLevel);
     };
+
+    const handleDifficultyChange = (event) => {
+        resetGame(event.target.value);
+    };
+
+    const resetGame = (level) => {
+        setScore(0);
+        actions.resetSavedScoreStatus();
+        actions.changeDifficultyLevel(level);
+    }
 
     return (
         <>

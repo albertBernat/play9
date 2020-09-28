@@ -15,9 +15,7 @@ class HighScoresPage extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.highScores.length === 0) {
-            this.props.fetchHighscores();
-        }
+        this.props.fetchHighscores();
     }
 
     render() {
