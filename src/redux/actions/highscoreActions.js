@@ -1,7 +1,6 @@
 import {FETCH_HIGHSCORE, FETCH_HIGHSCORE_FAILED, FETCH_HIGHSCORE_SUCEEDED} from "./actionTypes";
 
 export function fetchHighscores() {
-    console.log('test')
     return {
         type: FETCH_HIGHSCORE,
     };
