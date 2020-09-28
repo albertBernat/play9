@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import utils from "../../utils/Utils";
-import {INITIAL_EASY_LEVEL, INITIAL_HARD_LEVEL, INITIAL_MEDIUM_LEVEL} from "../reducers/initialState";
+import {INITIAL_EASY_LEVEL, INITIAL_HARD_LEVEL, INITIAL_MEDIUM_LEVEL} from "../reducers/initialGameState";
 import {EASY, HARD, MEDIUM} from "../../components/game/difficultyLevels";
 
 export function updateAvailableNumbers(availableNumbers) {

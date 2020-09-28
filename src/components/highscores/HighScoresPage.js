@@ -9,7 +9,9 @@ import {connect} from "react-redux";
 class HighScoresPage extends React.Component {
 
     static propTypes = {
-        fetchHighscores: PropTypes.func.isRequired
+        fetchHighscores: PropTypes.func.isRequired,
+        highScores: PropTypes.array,
+        errorMessage: PropTypes.string,
     }
 
     componentDidMount() {
@@ -20,14 +22,17 @@ class HighScoresPage extends React.Component {
 
     render() {
         return (
-            this.props.highScores.length === 0
+            this.props.errorMessage === '' && this.props.highScores.length === 0
                 ? <Spinner/>
-                : <HighScoresDisplay highScores={this.props.highScores}/>
+                : <HighScoresDisplay
+                    highScores={this.props.highScores}
+                    errorMessage={this.props.errorMessage}
+                />
         );
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return {
         fetchHighscores: () => dispatch(fetchHighscores())
     }
@@ -35,7 +40,8 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state) {
     return {
-        highScores: state.highscores,
+        highScores: state.scores.highscores,
+        errorMessage: state.scores.errorMessage,
     };
 }
 

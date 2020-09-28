@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes'
-import {INITIAL_EASY_LEVEL} from "./initialState";
+import {INITIAL_EASY_LEVEL} from "./initialGameState";
 
 export function gameReducer(state = INITIAL_EASY_LEVEL, action) {
     switch (action.type) {

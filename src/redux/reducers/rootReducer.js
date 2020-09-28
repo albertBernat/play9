@@ -4,7 +4,7 @@ import * as highscoreReducers from "./highscoreReducers";
 
 const rootReducer = combineReducers({
     game: gameReducers.gameReducer,
-    highscores: highscoreReducers.highscoreReducer,
+    scores: highscoreReducers.highscoreReducer,
 });
 
 export default rootReducer;
