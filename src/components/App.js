@@ -9,11 +9,14 @@ import TutorialGameRulesPage from "./tutorial/TutorialGameRulesPage";
 import TutorialWinGamePage from "./tutorial/TutorialWinGamePage";
 import TutorialGameOverPage from "./tutorial/TutorialGameOverPage";
 import HighScoresPage from "./highscores/HighScoresPage";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
     return (
         <>
+            <ToastContainer autoClose={3000}/>
             <Header/>
             <Switch>
                 <Route exact path="/" component={StarMatchPage}/>

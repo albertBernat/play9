@@ -5,7 +5,7 @@ import {SAVE_SCORE} from "../actions/actionTypes";
 
 function* saveScore(action) {
     try {
-        yield call(api.createHighScore(action.highscore))
+        yield call(api.createHighScore,action.highscore)
         yield put(saveScoreSuceeded())
     } catch (e) {
         yield put(saveScoreFailed())

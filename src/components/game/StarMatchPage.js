@@ -45,7 +45,6 @@ const StarMatchPage = ({secondLeft, availableNums, actions, stars, candidateNums
 
     const handleSaveHighscore = (event) => {
         event.preventDefault();
-        console.log(actions.saveScore)
         actions.saveScore({username, score: calculatePoints()})
         actions.changeDifficultyLevel(difficultyLevel);
     }
